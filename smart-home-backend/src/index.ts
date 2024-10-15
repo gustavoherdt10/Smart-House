@@ -6,7 +6,7 @@ import cors from 'cors';
 const app = express();
 app.use(cors());
 
-// Criar servidor HTTP
+// Criando o Servidor HTTP
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
@@ -15,7 +15,7 @@ const io = new Server(server, {
     },
 });
 
-
+//Estado inicial dos dispositivos nos comodos
 let dispositivos = {
     sala: {
         luzOn: false,
