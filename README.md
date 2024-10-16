@@ -13,7 +13,7 @@ Node.js; React;Socket.io; TypeScript
 ### 1. Clone o Repositório
 
 ```bash
-git clone https://github.com/gustavoherdt10/smart-house.git
+git clone https://github.com/gustavoherdt10/Smart-House.git
 cd smart-house
 ```
 
