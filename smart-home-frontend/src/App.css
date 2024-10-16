@@ -1,6 +1,6 @@
 body {
 	margin: 0;
-	background-color: #578cdb;
+	background-color: #0000;
 	height: 100vh;
 }
 #root {
@@ -10,9 +10,26 @@ body {
 	height: 100%;
 }
 
-.casa h1 {
+.gremio {
+    width: 150px;
     text-align: center;
+    margin: 0 auto;
+    margin-top: 0;
+}
+
+.rodape{
+    background-color: #5a021e;
     color: white;
+}
+
+.text-black{
+    color: #0000;
+}
+
+.title{
+    text-align: center;
+    color: black;
+    margin-bottom: 0;
 }
 
 .casa {
@@ -21,23 +38,26 @@ body {
     flex-direction: column;
 }
 
-.comodos {
-    display: flex;
+.container {
+    display: block;
     justify-content: center;
     align-items: center;
     gap: 30px;
 }
 
-.comodo {
-    display: flex;
+.row {
+    width: 100%;
+    max-width: 1000px;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    display: block;
     flex-direction: column;
-    border: 3px solid #010409;
     border-radius: 10px;
     align-items: center;
-    width: 500px;
     height: 300px;
     padding: 40px;;
-    background-color: #33425b;
+    background-color: #8d0530;
     color: white;
 }
 
@@ -88,15 +108,15 @@ body {
     filter: grayscale(100%);
 }
 
-.options,
-.feedback {
+.btns,
+.acao {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
 }
 
-.screen {
+.tv {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -119,11 +139,11 @@ body {
     overflow: hidden;
 }
 
-.screen.off .inner {
-    animation: screenoff 1s linear forwards;
+.tv.off .inner {
+    animation: tvoff 1s linear forwards;
 }
 
-@keyframes screenoff {
+@keyframes tvoff {
     0% {
         height: 100vh;
     }
@@ -167,7 +187,7 @@ body {
     }
 }
 
-.screen .inner {
+.tv .inner {
     background: repeating-linear-gradient(2deg,
             black,
             white 4px,
@@ -212,7 +232,7 @@ body {
 }
 
 @media (prefers-reduced-motion) {
-    .screen .inner {
+    .tv .inner {
         animation: none;
     }
 }
@@ -233,107 +253,13 @@ body {
     pointer-events: none;
 }
 
-@keyframes scaleUpDown {
 
-    0%,
-    100% {
-        transform: scaleY(1) scaleX(1);
-    }
-
-    50%,
-    90% {
-        transform: scaleY(1.1);
-    }
-
-    75% {
-        transform: scaleY(0.95);
-    }
-
-    80% {
-        transform: scaleX(0.95);
-    }
-}
-
-@keyframes shake {
-
-    0%,
-    100% {
-        transform: skewX(0) scale(1);
-    }
-
-    50% {
-        transform: skewX(5deg) scale(0.9);
-    }
-}
-
-@keyframes particleUp {
-    0% {
-        opacity: 0;
-    }
-
-    20% {
-        opacity: 1;
-    }
-
-    80% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 0;
-        top: -100%;
-        transform: scale(0.5);
-    }
-}
-
-@keyframes glow {
-
-    0%,
-    100% {
-        background-color: #ef5a00;
-    }
-
-    50% {
-        background-color: #ff7800;
-    }
-}
-
-.fire {
-    position: absolute;
-    top: 17px;
-    left: 24%;
-    width: 50px;
-    height: 30px;
-    background-color: transparent;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.fire.off {
+.fogo.off {
     display: none;
 }
 
-.fire.potencia-1 {
-    top: 20px;
-}
 
-.fire.potencia-2 {
-    top: 15px;
-}
-
-.fire.potencia-3 {
-    top: 10px;
-}
-
-.fire.potencia-4 {
-    top: 5px;
-}
-
-.fire.potencia-5 {
-    top: 1px;
-}
-
-.fire-center {
+.fogo-center {
     position: absolute;
     height: 100%;
     width: 100%;
@@ -342,116 +268,7 @@ body {
     animation-fill-mode: both;
 }
 
-.fire-center .main-fire {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-image: radial-gradient(farthest-corner at 10px 0, #d43300 0%, #ef5a00 95%);
-    transform: scaleX(0.8) rotate(45deg);
-    border-radius: 0 40% 60% 40%;
-    filter: drop-shadow(0 0 10px #d43322);
-}
-
-.fire-center .particle-fire {
-    position: absolute;
-    top: 60%;
-    left: 45%;
-    width: 10px;
-    height: 10px;
-    background-color: #ef5a00;
-    border-radius: 50%;
-    filter: drop-shadow(0 0 10px #d43322);
-    animation: particleUp 2s ease-out 0;
-    animation-iteration-count: infinite;
-    animation-fill-mode: both;
-}
-
-.fire-right {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    animation: shake 2s ease-out 0;
-    animation-iteration-count: infinite;
-    animation-fill-mode: both;
-}
-
-.fire-right .main-fire {
-    position: absolute;
-    top: 15%;
-    right: -25%;
-    width: 80%;
-    height: 80%;
-    background-color: #ef5a00;
-    transform: scaleX(0.8) rotate(45deg);
-    border-radius: 0 40% 60% 40%;
-    filter: drop-shadow(0 0 10px #d43322);
-}
-
-.fire-right .particle-fire {
-    position: absolute;
-    top: 45%;
-    left: 50%;
-    width: 15px;
-    height: 15px;
-    background-color: #ef5a00;
-    transform: scaleX(0.8) rotate(45deg);
-    border-radius: 50%;
-    filter: drop-shadow(0 0 10px #d43322);
-    animation: particleUp 2s ease-out 0;
-    animation-iteration-count: infinite;
-    animation-fill-mode: both;
-}
-
-.fire-left {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    animation: shake 3s ease-out 0;
-    animation-iteration-count: infinite;
-    animation-fill-mode: both;
-}
-
-.fire-left .main-fire {
-    position: absolute;
-    top: 15%;
-    left: -20%;
-    width: 80%;
-    height: 80%;
-    background-color: #ef5a00;
-    transform: scaleX(0.8) rotate(45deg);
-    border-radius: 0 40% 60% 40%;
-    filter: drop-shadow(0 0 10px #d43322);
-}
-
-.fire-left .particle-fire {
-    position: absolute;
-    top: 10%;
-    left: 20%;
-    width: 10%;
-    height: 10%;
-    background-color: #ef5a00;
-    border-radius: 50%;
-    filter: drop-shadow(0 0 10px #d43322);
-    animation: particleUp 3s infinite ease-out 0;
-    animation-fill-mode: both;
-}
-
-.fire-bottom .main-fire {
-    position: absolute;
-    top: 30%;
-    left: 20%;
-    width: 75%;
-    height: 75%;
-    background-color: #ff7800;
-    transform: scaleX(0.8) rotate(45deg);
-    border-radius: 0 40% 100% 40%;
-    filter: blur(10px);
-    animation: glow 2s ease-out 0;
-    animation-iteration-count: infinite;
-    animation-fill-mode: both;
-}
-
-.fan {
+.ventilador {
     position: relative;
     width: 100px;
     height: 100px;
@@ -464,23 +281,23 @@ body {
     background: transparent;
 }
 
-.fan.velocidade-1 {
+.ventilador.velocidade-1 {
     animation: spin 2s linear infinite;
 }
 
-.fan.velocidade-2 {
+.ventilador.velocidade-2 {
     animation: spin 1s linear infinite;
 }
 
-.fan.velocidade-3 {
+.ventilador.velocidade-3 {
     animation: spin 0.5s linear infinite;
 }
 
-.fan.off {
+.ventilador.off {
     animation: spin 0s linear infinite;
 }
 
-.fan:after {
+.ventilador:after {
 	content: '';
     position: absolute;
     width: 5px;
@@ -517,7 +334,7 @@ body {
 	}
 }
 
-.rxWorld {
+.janelaAbertaWidth {
     width: 100px;
     height: 100px;
     margin-top: 15px;
@@ -585,14 +402,14 @@ body {
 .rnUnit:nth-child(10) {
     animation-delay: -1s;
 }
-.aoTable {
+.janela {
     display: table;
     width: 100%;
     text-align: center;
     background-color: black;
 }
 
-.aoTableCell {
+.janela2 {
     height: 100px;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -609,7 +426,7 @@ body {
     transform-origin: -120% top;
     transform: scaleX(0);
 }
-.rnOuter.open .aoTableCell {
+.rnOuter.open .janela2 {
     color: white;
 }
 
@@ -630,3 +447,18 @@ body {
 	opacity: 1;
 	scale: 0.5;
 }
+
+button {
+    background-color: #fff;
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}  

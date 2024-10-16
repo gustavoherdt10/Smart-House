@@ -16,7 +16,7 @@ const Sala: React.FC = () => {
 
     useEffect(() => {
         socket.on('estadoInicial', (estadoDispositivos: EstadoDispositivos) => {
-            setDispositivosSala(EstadoDispositivos.sala);
+            setDispositivosSala(estadoDispositivos.sala);
         });
 
         socket.on('estadoAltera', (novoEstado: EstadoDispositivos) => {
@@ -66,7 +66,7 @@ const Sala: React.FC = () => {
             </div>
             <div className='acao'>
                 <div className='luzContainer'>
-                    <img src='imgs\luz.png' className={`lampada status ${dispositivosSala.luzOn ? 'on' : 'off'}`} />
+                    <img src='images\luz.png' className={`lampada status ${dispositivosSala.luzOn ? 'on' : 'off'}`} />
                 </div>
                 <div className='tvContainer'>
                     <div className={`tv ${!dispositivosSala.tvOn ? 'off' : 'on'}`} >
@@ -75,7 +75,7 @@ const Sala: React.FC = () => {
                     {dispositivosSala.tvOn && <button onClick={controlarTv} className='canal'>{`Trocar (Canal ${dispositivosSala.canalAtual})`}</button>}
                 </div>
                 <div className='arContainer'>
-                    <img src='imgs\ar.png' className={`ar status ${dispositivosSala.arCondicionadoOn ? 'on' : 'off'}`} />
+                    <img src='images\ar.png' className={`ar status ${dispositivosSala.arCondicionadoOn ? 'on' : 'off'}`} />
                     {dispositivosSala.arCondicionadoOn && <button onClick={ajustarArCondicionado} className='temperatura'>{`Ajustar Ar (Temp: ${dispositivosSala.temperatura}°C)`}</button>}
                 </div>
             </div>

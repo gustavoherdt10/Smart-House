@@ -7,11 +7,11 @@ const socket = io('http://localhost:4000');
 
 
 const App: React.FC = () => {
-    const [dispositivos, setDispositivos] = useState<typeof EstadoDispositivos>({
+    const [dispositivos, setDispositivos] = useState<EstadoDispositivos>({
         sala: {
             luzOn: false,
             tvOn: false,
-            canalTV: 1,
+            canalAtual: 1,
             arCondicionadoOn: false,
             temperatura: 24,
         },
@@ -20,21 +20,19 @@ const App: React.FC = () => {
             geladeiraTemperatura: 4,
             alertaGeladeira: false,
             fogaoOn: false,
-            fogaoModo: 1,
+            fogaoPotencia: 1,
         },
         quarto: {
             luzOn: false,
             ventiladorOn: false,
-            cortinaAberta: false,
-        }
+            ventiladorVelocidade: 1,
+            cortinasAbertas: false,
+        },
     });
-    
 
     useEffect(() => {
-        socket.on('estadoInicial', (estadoDispositivos: typeof EstadoDispositivos) => {
+        socket.on('estadoInicial', (estadoDispositivos: EstadoDispositivos) => {
             setDispositivos(estadoDispositivos);
-        });
-        
         });
 
         socket.on('estadoAltera', (novoEstado: EstadoDispositivos) => {
@@ -62,7 +60,7 @@ const App: React.FC = () => {
     }
 
     const ajustarFogao = () => {
-        const novaPotencia = dispositivos.cozinha.fogaoModo === 3 ? 1 : dispositivos.cozinha.fogaoModo + 1;
+        const novaPotencia = dispositivos.cozinha.fogaoPotencia === 3 ? 1 : dispositivos.cozinha.fogaoPotencia + 1;
         socket.emit('ajustarFogao', novaPotencia);
     };
 
@@ -85,8 +83,7 @@ const App: React.FC = () => {
 
     return (
         <div className='casa'>
-            <h1 className='title'>Home Controller</h1>
-            <img className='gremio' src="imgs/gremio.png" alt="" />
+            <h1 className='title'>Smart House - Atividade</h1>
             <div className='container'>
                 <div className="row">
                     <Sala />
@@ -107,17 +104,17 @@ const App: React.FC = () => {
                     </div>
                     <div className='acao'>
                         <div className='luzContainer'>
-                            <img src='imgs\luz.png' className={`lampada status ${dispositivos.cozinha.luzOn ? 'on' : 'off'}`} />
+                            <img src='images\luz.png' className={`lampada status ${dispositivos.cozinha.luzOn ? 'on' : 'off'}`} />
                         </div>
                         <div className='geladeiraContainer'>
-                            <img src='imgs\geladeira.png' className='geladeira' />
+                            <img src='images\geladeira.png' className='geladeira' />
                             <p>Temperatura da Geladeira: {dispositivos.cozinha.geladeiraTemperatura}°C</p>
                         </div>
                         <div className='fogaoContainer'>
-                            <div className={`fogo potencia-${dispositivos.cozinha.fogaoModo} ${dispositivos.cozinha.fogaoOn ? 'on' : 'off'}`}>
+                            <div className={`fogo potencia-${dispositivos.cozinha.fogaoPotencia} ${dispositivos.cozinha.fogaoOn ? 'on' : 'off'}`}>
                             </div>
-                            <img src='imgs\stove.png' className={`fogao status ${dispositivos.cozinha.fogaoOn ? 'on' : 'off'}`} />
-                            {dispositivos.cozinha.fogaoOn && <button onClick={ajustarFogao} className='potencia'>{`(Potência: ${dispositivos.cozinha.fogaoModo})`}</button>}
+                            <img src='images\fogao.png' className={`fogao status ${dispositivos.cozinha.fogaoOn ? 'on' : 'off'}`} />
+                            {dispositivos.cozinha.fogaoOn && <button onClick={ajustarFogao} className='potencia'>{`(Potência: ${dispositivos.cozinha.fogaoPotencia})`}</button>}
                         </div>
                     </div>
                 </div>
@@ -137,7 +134,7 @@ const App: React.FC = () => {
                     </div>
                     <div className='acao'>
                         <div className='luzContainer'>
-                            <img src='imgs\luz.png' className={`lampada status ${dispositivos.quarto.luzOn ? 'on' : 'off'}`} />
+                            <img src='images\luz.png' className={`lampada status ${dispositivos.quarto.luzOn ? 'on' : 'off'}`} />
                         </div>
                         <div className="ventiladorContainer">
                             <div className={`ventilador velocidade-${dispositivos.quarto.ventiladorVelocidade} ${dispositivos.quarto.ventiladorOn ? 'on' : 'off'}`}>
@@ -181,7 +178,7 @@ const App: React.FC = () => {
                         </div>
                     </div>
                 </div>
-                <p className='rodape'>Trabalho realizado por Gustavo Herdt</p>
+                <p className='rodape'>Trabalho feito por Gustavo Herdt</p>
             </div>
         </div>
     );
