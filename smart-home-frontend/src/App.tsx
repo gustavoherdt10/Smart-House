@@ -7,11 +7,11 @@ const socket = io('http://localhost:4000');
 
 
 const App: React.FC = () => {
-    const [dispositivos, setDispositivos] = useState<EstadoDispositivos>({
+    const [dispositivos, setDispositivos] = useState<typeof EstadoDispositivos>({
         sala: {
             luzOn: false,
             tvOn: false,
-            canalAtual: 1,
+            canalTV: 1,
             arCondicionadoOn: false,
             temperatura: 24,
         },
@@ -20,19 +20,21 @@ const App: React.FC = () => {
             geladeiraTemperatura: 4,
             alertaGeladeira: false,
             fogaoOn: false,
-            fogaoPotencia: 1,
+            fogaoModo: 1,
         },
         quarto: {
             luzOn: false,
             ventiladorOn: false,
-            ventiladorVelocidade: 1,
-            cortinasAbertas: false,
-        },
+            cortinaAberta: false,
+        }
     });
+    
 
     useEffect(() => {
-        socket.on('estadoInicial', (estadoDispositivos: EstadoDispositivos) => {
+        socket.on('estadoInicial', (estadoDispositivos: typeof EstadoDispositivos) => {
             setDispositivos(estadoDispositivos);
+        });
+        
         });
 
         socket.on('estadoAltera', (novoEstado: EstadoDispositivos) => {
@@ -60,7 +62,7 @@ const App: React.FC = () => {
     }
 
     const ajustarFogao = () => {
-        const novaPotencia = dispositivos.cozinha.fogaoPotencia === 3 ? 1 : dispositivos.cozinha.fogaoPotencia + 1;
+        const novaPotencia = dispositivos.cozinha.fogaoModo === 3 ? 1 : dispositivos.cozinha.fogaoModo + 1;
         socket.emit('ajustarFogao', novaPotencia);
     };
 
@@ -112,10 +114,10 @@ const App: React.FC = () => {
                             <p>Temperatura da Geladeira: {dispositivos.cozinha.geladeiraTemperatura}°C</p>
                         </div>
                         <div className='fogaoContainer'>
-                            <div className={`fogo potencia-${dispositivos.cozinha.fogaoPotencia} ${dispositivos.cozinha.fogaoOn ? 'on' : 'off'}`}>
+                            <div className={`fogo potencia-${dispositivos.cozinha.fogaoModo} ${dispositivos.cozinha.fogaoOn ? 'on' : 'off'}`}>
                             </div>
                             <img src='imgs\stove.png' className={`fogao status ${dispositivos.cozinha.fogaoOn ? 'on' : 'off'}`} />
-                            {dispositivos.cozinha.fogaoOn && <button onClick={ajustarFogao} className='potencia'>{`(Potência: ${dispositivos.cozinha.fogaoPotencia})`}</button>}
+                            {dispositivos.cozinha.fogaoOn && <button onClick={ajustarFogao} className='potencia'>{`(Potência: ${dispositivos.cozinha.fogaoModo})`}</button>}
                         </div>
                     </div>
                 </div>

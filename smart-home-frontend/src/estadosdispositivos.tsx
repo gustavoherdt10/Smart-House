@@ -1,22 +1,21 @@
-export interface EstadoDispositivos {
+export const EstadoDispositivos = {
     sala: {
-        luzOn: boolean;
-        tvOn: boolean;
-        canalTV: number;
-        arCondicionadoOn: boolean;
-        temperatura: number;
-    };
+        luzOn: false,
+        tvOn: false,
+        canalTV: 1,
+        arCondicionadoOn: false,
+        temperatura: 24,
+    },
     cozinha: {
-        luzOn: boolean;
-        geladeiraTemperatura: number;
-        alertaGeladeira: boolean;
-        fogaoOn: boolean;
-        fogaoModo: number;
-    };
+        luzOn: false,
+        geladeiraTemperatura: 4,
+        alertaGeladeira: false,
+        fogaoOn: false,
+        fogaoModo: 1,
+    },
     quarto: {
-        luzOn: boolean;
-        ventiladorOn: boolean;
-        ventiladorVelocidade: number;
-        cortinasAbertas: boolean;
-    };
-  }
+        luzOn: false,
+        ventiladorOn: false,
+        cortinaAberta: false,
+    }
+};
