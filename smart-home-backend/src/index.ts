@@ -16,112 +16,111 @@ const io = new Server(server, {
 });
 
 //Estado inicial dos dispositivos nos comodos
-let dispositivos = {
-    sala: {
-        luzOn: false,
-        tvOn: false,
-        temperatura: 21,
-        canalAtual: 1,
-        arCondicionadoOn: false,
-    },
-    cozinha: {
-        luzOn: false,
-        geladeiraTemperatura: 0,
-        alertaGeladeira: false,
-        fogaoOn: false,
-        fogaoPotencia: 0,
-    },
-    quarto: {
-        luzOn: false,
-        ventiladorOn: false,
-        ventiladorVelocidade: 1,
-        cortinasAbertas: false,
-    },
-};
+let dispositivosSala = {
+    luzOn: false,
+    tvOn: false,
+    canalTV: 1,
+    arcondicionadoOn: false,
+    temperatura: 18
+}
 
-// Escuta os eventos de conexão do socket
+let dispositivosCozinha = {
+    luzOn: false,
+    geladeiraTemp: 0,
+    alarmeGeladeira: false,
+    fogaoOn: false,
+    modoFogao: 0
+}
+
+let dispositivosQuarto = {
+    luzOn: false,
+    ventiladorOn: false,
+    ventiladorVeloc: 1,
+    cortinasOpen: false
+}
+
+// Escutando a conexão Socket
 io.on('connection', (socket) => {
     console.log('Cliente conectado', socket.id);
 
     // Enviando o estado inicial dos dispositivos para o cliente
-    socket.emit('estadoInicial', dispositivos);
+    socket.emit('estadoInicial', {
+        sala: dispositivosSala,
+        cozinha: dispositivosCozinha,
+        quarto: dispositivosQuarto,
+    });
 
     // Sala de estar
     socket.on('acenderLuzSala', () => {
-        dispositivos.sala.luzOn = !dispositivos.sala.luzOn;
-        io.emit('estadoAltera', dispositivos);
+        dispositivosSala.luzOn = !dispositivosSala.luzOn;
+        io.emit('estadoSalaAltera', dispositivosSala);
     });
 
     socket.on('ligarTvSala', () => {
-        dispositivos.sala.tvOn = !dispositivos.sala.tvOn
-        io.emit('estadoAltera', dispositivos);
-    })
+        dispositivosSala.tvOn = !dispositivosSala.tvOn;
+        io.emit('estadoSalaAltera', dispositivosSala);
+    });
 
     socket.on('controlarTv', (canal) => {
-        if (canal) dispositivos.sala.canalAtual = canal;
-        io.emit('estadoAltera', dispositivos);
+        if (canal) dispositivosSala.canalTV = canal;
+        io.emit('estadoSalaAltera', dispositivosSala);
     });
 
     socket.on('ligarArCondicionado', () => {
-        dispositivos.sala.arCondicionadoOn = !dispositivos.sala.arCondicionadoOn;
-        io.emit('estadoAltera', dispositivos);
+        dispositivosSala.arcondicionadoOn = !dispositivosSala.arcondicionadoOn;
+        io.emit('estadoSalaAltera', dispositivosSala);
     });
 
     socket.on('ajustarArCondicionado', (temperatura) => {
-        if (temperatura) dispositivos.sala.temperatura = temperatura;
-        io.emit('estadoAltera', dispositivos);
+        if (temperatura) dispositivosSala.temperatura = temperatura;
+        io.emit('estadoSalaAltera', dispositivosSala);
     });
 
     // Cozinha
     socket.on('acenderLuzCozinha', () => {
-        dispositivos.cozinha.luzOn = !dispositivos.cozinha.luzOn;
-        io.emit('estadoAltera', dispositivos);
+        dispositivosCozinha.luzOn = !dispositivosCozinha.luzOn;
+        io.emit('estadoCozinhaAltera', dispositivosCozinha);
     });
 
     socket.on('ligarFogao', () => {
-        dispositivos.cozinha.fogaoOn = !dispositivos.cozinha.fogaoOn;
-        io.emit('estadoAltera', dispositivos);
-    })
-
-    socket.on('ajustarFogao', (potencia) => {
-        if (potencia) dispositivos.cozinha.fogaoPotencia = potencia;
-        io.emit('estadoAltera', dispositivos);
+        dispositivosCozinha.fogaoOn = !dispositivosCozinha.fogaoOn;
+        io.emit('estadoCozinhaAltera', dispositivosCozinha);
     });
 
-    // Monitorar temperatura da geladeira
+    socket.on('ajustarFogao', (modo) => {
+        if (modo) dispositivosCozinha.modoFogao = modo;
+        io.emit('estadoCozinhaAltera', dispositivosCozinha);
+    });
+
     socket.on('verificarGeladeira', (temperatura) => {
-        dispositivos.cozinha.geladeiraTemperatura = temperatura;
-        if (temperatura > 5) {
-            dispositivos.cozinha.alertaGeladeira = true;
-        } else {
-            dispositivos.cozinha.alertaGeladeira = false;
-        }
-        io.emit('estadoAltera', dispositivos);
+        dispositivosCozinha.geladeiraTemp = temperatura;
+        dispositivosCozinha.alarmeGeladeira = temperatura > 5;
+        io.emit('estadoCozinhaAltera', dispositivosCozinha);
     });
 
     // Quarto
     socket.on('acenderLuzQuarto', () => {
-        dispositivos.quarto.luzOn = !dispositivos.quarto.luzOn;
-        io.emit('estadoAltera', dispositivos);
+        dispositivosQuarto.luzOn = !dispositivosQuarto.luzOn;
+        io.emit('estadoQuartoAltera', dispositivosQuarto);
     });
 
     socket.on('ligarVentilador', () => {
-        dispositivos.quarto.ventiladorOn = !dispositivos.quarto.ventiladorOn;
-        io.emit('estadoAltera', dispositivos);
+        dispositivosQuarto.ventiladorOn = !dispositivosQuarto.ventiladorOn;
+        io.emit('estadoQuartoAltera', dispositivosQuarto);
     });
 
     socket.on('ajustarVentilador', (velocidade) => {
-        if (velocidade) dispositivos.quarto.ventiladorVelocidade = velocidade;
-        io.emit('estadoAltera', dispositivos);
+        if (velocidade) dispositivosQuarto.ventiladorVeloc = velocidade;
+        io.emit('estadoQuartoAltera', dispositivosQuarto);
     });
 
     socket.on('controlarCortinas', () => {
-        dispositivos.quarto.cortinasAbertas = !dispositivos.quarto.cortinasAbertas;
-        io.emit('estadoAltera', dispositivos);
+        dispositivosQuarto.cortinasOpen = !dispositivosQuarto.cortinasOpen;
+        io.emit('estadoQuartoAltera', dispositivosQuarto);
     });
 });
 
-// Iniciar servidor
+// Iniciando o Servidor
 const PORT = 4000;
 server.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
