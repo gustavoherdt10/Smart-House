@@ -17,11 +17,6 @@ body {
     margin-top: 0;
 }
 
-.rodape{
-    background-color: #5a021e;
-    color: white;
-}
-
 .text-black{
     color: #0000;
 }
@@ -428,24 +423,6 @@ body {
 }
 .rnOuter.open .janela2 {
     color: white;
-}
-
-
-.github-repo {
-	position: fixed;
-	bottom: 10px;
-	right: 20px;
-}
-
-.github-repo a img {
-	scale: 0.45;
-	opacity: 0.5;
-	transition: all .25s;
-}
-
-.github-repo a img:hover {
-	opacity: 1;
-	scale: 0.5;
 }
 
 button {
