@@ -1,40 +1,12 @@
-# Smart Home Controller
+# Smart House - Atividade
 
-## Objetivo
+## Objetivo do Trabalho
 
-Desenvolver uma aplicação de casa inteligente que simula o controle e monitoramento de dispositivos em tempo real, utilizando tecnologias modernas e oferecendo uma experiência interativa aos usuários.
-
-## Cômodos e Dispositivos
-
-### 1. Sala de Estar
-- **Luzes Inteligentes**: Permite ligar e desligar as luzes.
-  - Estados: Ligado/Desligado.
-- **Televisão**: Permite ligar/desligar a TV e mudar de canal.
-  - Estados: Ligado/Desligado, Canal (lista de canais disponíveis).
-- **Ar-Condicionado**: Permite ligar/desligar e ajustar a temperatura.
-  - Estados: Ligado/Desligado, Temperatura (ajustável de 18°C a 30°C).
-
-### 2. Cozinha
-- **Luzes Inteligentes**: Permite ligar e desligar as luzes.
-  - Estados: Ligado/Desligado.
-- **Geladeira Inteligente**: Monitora a temperatura interna e alerta o usuário se a temperatura subir além do valor definido.
-  - Estados: Temperatura Interna, Alerta (acionado quando acima de 5°C).
-- **Fogão Elétrico**: Permite ligar/desligar e ajustar o nível de potência.
-  - Estados: Ligado/Desligado, Potência (ajustável de 1 a 5).
-
-### 3. Quarto
-- **Luzes Inteligentes**: Permite ligar e desligar as luzes.
-  - Estados: Ligado/Desligado.
-- **Ventilador Inteligente**: Permite ligar/desligar e ajustar a velocidade.
-  - Estados: Ligado/Desligado, Velocidade (1 a 3).
-- **Cortinas Automáticas**: Permite abrir e fechar as cortinas.
-  - Estados: Aberto/Fechado.
+Criar um aplicativo que simula uma casa inteligente com controle de dispositivos em tempo real.
 
 ## Tecnologias Utilizadas
-- **Node.js**
-- **React**
-- **Socket.io**
-- **TypeScript**
+
+Node.js; React;Socket.io; TypeScript
 
 ## Como Executar o Projeto
 
